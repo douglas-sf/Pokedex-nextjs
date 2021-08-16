@@ -17,7 +17,7 @@ type Data = {
 export async function getPokemonData(url: string, configs: AxiosRequestConfig = {}) {
   const { data } = await api.get(url, { ...configs });
 
-  const { count, next, previous, results } = data as Data;
+  const { count, results } = data as Data;
 
   const pokemonList = [];
 
@@ -33,5 +33,5 @@ export async function getPokemonData(url: string, configs: AxiosRequestConfig = 
     pokemonList.push(pokemon);
   }
 
-  return { count, next, previous, pokemonList };
+  return { count, pokemonList };
 }

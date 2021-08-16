@@ -5,7 +5,7 @@ import styles from './Card.module.scss';
 type Pokemon = {
   id: number;
   name: string;
-  image: string;
+  image?: string;
   types: string[];
 };
 
@@ -17,14 +17,19 @@ export function Card({ pokemon }: CardProps) {
   const { id, name, image, types } = pokemon;
   const [firstType] = types;
 
+  const resultName = name.replace(/\-(female|male|f|m)$/, (substring, gender) => {
+    if (gender === 'f' || gender === 'female') return ' \u2640';
+    if (gender === 'm' || gender === 'male') return ' \u2642';
+  });
+
   return (
     <article className={styles.card}>
       <header>
-        <h1>{name}</h1>
+        <h1>{resultName}</h1>
         <h2>#{id}</h2>
       </header>
       <div className={`${styles.background} bg-${firstType}`}>
-        <Image src={image} alt={name} width={300} height={300} />
+        {image && <Image src={image} alt={name} width={900} height={900} />}
       </div>
       <footer>
         {types.map((type, index) => (
