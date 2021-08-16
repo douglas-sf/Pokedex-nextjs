@@ -32,8 +32,8 @@ export function Card({ pokemon }: CardProps) {
         {image && <Image src={image} alt={name} width={900} height={900} />}
       </div>
       <footer>
-        {types.map((type, index) => (
-          <div key={index} className={`type ${type}`}>
+        {types.map((type) => (
+          <div key={type} className={`type ${type}`}>
             {type}
           </div>
         ))}
