@@ -1,0 +1,158 @@
+.type {
+  width: 100%;
+  padding: 1rem 0;
+
+  border-radius: 10px;
+
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #000;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.normal {
+  background: var(--normal);
+}
+
+.fire {
+  background: var(--fire);
+}
+
+.water {
+  background: var(--water);
+}
+
+.grass {
+  background: var(--grass);
+}
+
+.flying {
+  background: var(--flying);
+}
+
+.fighting {
+  background: var(--fighting);
+}
+
+.poison {
+  background: var(--poison);
+}
+
+.electric {
+  background: var(--electric);
+}
+
+.ground {
+  background: var(--ground);
+}
+
+.rock {
+  background: var(--rock);
+}
+
+.psychic {
+  background: var(--psychic);
+}
+
+.ice {
+  background: var(--ice);
+}
+
+.bug {
+  background: var(--bug);
+}
+
+.ghost {
+  background: var(--ghost);
+}
+
+.steel {
+  background: var(--steel);
+}
+
+.dragon {
+  background: var(--dragon);
+}
+
+.dark {
+  background: var(--dark);
+}
+
+.fairy {
+  background: var(--fairy);
+}
+
+.bg-normal {
+  background: linear-gradient(to top right, var(--normal) 10%, #333 60%);
+}
+
+.bg-fire {
+  background: linear-gradient(to top right, var(--fire) 10%, #333 60%);
+}
+
+.bg-water {
+  background: linear-gradient(to top right, var(--water) 10%, #333 60%);
+}
+
+.bg-grass {
+  background: linear-gradient(to top right, var(--grass) 10%, #333 60%);
+}
+
+.bg-flying {
+  background: linear-gradient(to top right, var(--flying) 10%, #333 60%);
+}
+
+.bg-fighting {
+  background: linear-gradient(to top right, var(--fighting) 10%, #333 60%);
+}
+
+.bg-poison {
+  background: linear-gradient(to top right, var(--poison) 10%, #333 60%);
+}
+
+.bg-electric {
+  background: linear-gradient(to top right, var(--electric) 10%, #333 60%);
+}
+
+.bg-ground {
+  background: linear-gradient(to top right, var(--ground) 10%, #333 60%);
+}
+
+.bg-rock {
+  background: linear-gradient(to top right, var(--rock) 10%, #333 60%);
+}
+
+.bg-psychic {
+  background: linear-gradient(to top right, var(--psychic) 10%, #333 60%);
+}
+
+.bg-ice {
+  background: linear-gradient(to top right, var(--ice) 10%, #333 60%);
+}
+
+.bg-bug {
+  background: linear-gradient(to top right, var(--bug) 10%, #333 60%);
+}
+
+.bg-ghost {
+  background: linear-gradient(to top right, var(--ghost) 10%, #333 60%);
+}
+
+.bg-steel {
+  background: linear-gradient(to top right, var(--steel) 10%, #333 60%);
+}
+
+.bg-dragon {
+  background: linear-gradient(to top right, var(--dragon) 10%, #333 60%);
+}
+
+.bg-dark {
+  background: linear-gradient(to top right, var(--dark) 10%, #333 60%);
+}
+
+.bg-fairy {
+  background: linear-gradient(to top right, var(--fairy) 10%, #333 60%);
+}

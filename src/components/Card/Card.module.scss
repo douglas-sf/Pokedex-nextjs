@@ -1,0 +1,78 @@
+.card {
+  width: 100%;
+  padding: 20px;
+
+  background: #333;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  cursor: pointer;
+
+  header {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.7rem;
+
+      text-transform: capitalize;
+    }
+
+    h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.25rem;
+    }
+  }
+
+  .background {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+
+    background-size: 400%;
+    background-position: 100% 50%;
+
+    animation: background-down 400ms forwards;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &:hover .background {
+    animation: background-up 400ms forwards;
+  }
+}
+
+@keyframes background-up {
+  from {
+    background-position: 100% 50%;
+  }
+
+  to {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes background-down {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 100% 50%;
+  }
+}
