@@ -1,4 +1,6 @@
 export function getStartPosition(currentPage: number, maxPage: number, buttons: number) {
+  buttons = buttons > maxPage ? maxPage : buttons;
+
   const middleButtons = Math.floor(buttons / 2);
 
   if (currentPage <= middleButtons + 1) return 1;
@@ -7,6 +9,8 @@ export function getStartPosition(currentPage: number, maxPage: number, buttons: 
 }
 
 export function getEndPosition(currentPage: number, maxPage: number, buttons: number) {
+  buttons = buttons > maxPage ? maxPage : buttons;
+
   const middleButtons = Math.floor(buttons / 2);
 
   if (currentPage <= middleButtons + 1) return buttons;
