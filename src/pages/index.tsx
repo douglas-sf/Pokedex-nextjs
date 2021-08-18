@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 import { Card } from '../components/Card';
+import { Loading } from '../components/Loading';
 import { NavMenu } from '../components/NavMenu';
 
 import { getPokemonData } from '../helpers/getPokemonData';
@@ -12,7 +13,7 @@ import styles from '../styles/Home.module.scss';
 type Pokemon = {
   id: number;
   name: string;
-  image: string;
+  image: string | null;
   types: string[];
 };
 
@@ -31,6 +32,9 @@ export default function Home({ pokemonList, count }: HomeProps) {
 
   useEffect(() => {
     const offset = (currentPage - 1) * limit;
+
+    setPokemons([]);
+
     getPokemonData('/pokemon', { params: { limit, offset } }).then((data) => {
       setPokemons(data.pokemonList);
     });
@@ -44,11 +48,15 @@ export default function Home({ pokemonList, count }: HomeProps) {
 
       <h1>Pokédex</h1>
 
-      <main>
-        {pokemons.map((pokemon) => (
-          <Card key={pokemon.id} pokemon={pokemon} />
-        ))}
-      </main>
+      {pokemons.length > 0 ? (
+        <main>
+          {pokemons.map((pokemon) => (
+            <Card key={pokemon.id} pokemon={pokemon} />
+          ))}
+        </main>
+      ) : (
+        <Loading />
+      )}
 
       <NavMenu {...navMenuProps} />
     </div>
@@ -56,7 +64,7 @@ export default function Home({ pokemonList, count }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { count, pokemonList } = await getPokemonData('/pokemon', { params: { limit: 8 } });
+  const { count, pokemonList } = await getPokemonData('/pokemon', { params: { limit } });
 
   return {
     props: {

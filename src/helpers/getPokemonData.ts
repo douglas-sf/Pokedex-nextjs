@@ -14,24 +14,29 @@ type Data = {
   results: Result[];
 };
 
+type PokemonData = {
+  id: number;
+  name: string;
+  image: string | null;
+  types: string[];
+};
+
 export async function getPokemonData(url: string, configs: AxiosRequestConfig = {}) {
   const { data } = await api.get(url, { ...configs });
 
   const { count, results } = data as Data;
 
-  const pokemonList = [];
-
-  for (const { url } of results) {
+  const promises = results.map(async ({ url }) => {
     const { data } = await axios.get(url);
 
     const { id, name, types: apiTypes, sprites } = data;
     const image = sprites.other['official-artwork'].front_default;
     const types = apiTypes.map(({ type }) => type.name);
 
-    const pokemon = { id, name, image, types };
+    return { id, name, image, types };
+  });
 
-    pokemonList.push(pokemon);
-  }
+  const pokemonList: PokemonData[] = await Promise.all(promises);
 
   return { count, pokemonList };
 }

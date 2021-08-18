@@ -26,20 +26,8 @@ export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: 
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   }
 
-  function firstPageHandle() {
-    setCurrentPage(1);
-  }
-
-  function lastPageHandle() {
-    setCurrentPage(maxPages);
-  }
-
   function nextPageHandler() {
     if (currentPage < maxPages) setCurrentPage(currentPage + 1);
-  }
-
-  function setPageHandler(page: number) {
-    setCurrentPage(page);
   }
 
   return (
@@ -53,7 +41,7 @@ export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: 
           </li>
 
           <li>
-            <button onClick={firstPageHandle} disabled={currentPage === 1}>
+            <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
               First
             </button>
           </li>
@@ -62,7 +50,7 @@ export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: 
             <li key={page}>
               <button
                 className={`${currentPage === page ? styles.active : ''}`}
-                onClick={() => setPageHandler(page)}
+                onClick={() => setCurrentPage(page)}
                 disabled={currentPage === page}
               >
                 {page}
@@ -71,7 +59,7 @@ export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: 
           ))}
 
           <li>
-            <button onClick={lastPageHandle} disabled={currentPage === maxPages}>
+            <button onClick={() => setCurrentPage(maxPages)} disabled={currentPage === maxPages}>
               Last
             </button>
           </li>
