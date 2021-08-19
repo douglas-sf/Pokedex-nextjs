@@ -40,3 +40,9 @@ export async function getPokemonData(url: string, configs: AxiosRequestConfig = 
 
   return { count, pokemonList };
 }
+
+export async function getPokemons(pageNumber: number, limit: number) {
+  const offset = (pageNumber - 1) * limit;
+
+  return await getPokemonData('/pokemon', { params: { limit, offset } });
+}

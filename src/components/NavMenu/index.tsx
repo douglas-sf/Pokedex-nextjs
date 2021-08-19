@@ -1,18 +1,16 @@
 import { createRange } from '../../helpers/createRange';
 import { getEndPosition, getStartPosition } from '../../helpers/getPagePosition';
 
+import { usePagination } from '../../hooks/usePagination';
+
 import styles from './NavMenu.module.scss';
 
 type NavMenuProps = {
-  currentPage: number;
-  count: number;
   buttons: number;
-  limit: number;
-  setCurrentPage: (page: number) => void;
 };
 
-export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: NavMenuProps) {
-  const maxPages = Math.ceil(count / limit);
+export function NavMenu({ buttons }: NavMenuProps) {
+  const { currentPage, maxPages, changePage } = usePagination();
 
   const hasPrevious = currentPage <= 1;
   const hasNext = currentPage >= maxPages;
@@ -22,12 +20,24 @@ export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: 
 
   const range = createRange(start, end);
 
-  function previousPageHandler() {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  async function previousPageHandler() {
+    if (currentPage < 1) {
+      await changePage(currentPage - 1);
+    }
   }
 
-  function nextPageHandler() {
-    if (currentPage < maxPages) setCurrentPage(currentPage + 1);
+  async function firstPageHandler() {
+    await changePage(1);
+  }
+
+  async function lastPageHandler() {
+    await changePage(maxPages);
+  }
+
+  async function nextPageHandler() {
+    if (currentPage < maxPages) {
+      await changePage(currentPage + 1);
+    }
   }
 
   return (
@@ -35,13 +45,13 @@ export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: 
       <nav>
         <ul>
           <li>
-            <button onClick={previousPageHandler} disabled={hasPrevious}>
+            <button disabled={hasPrevious} onClick={previousPageHandler}>
               &lt;
             </button>
           </li>
 
           <li>
-            <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+            <button disabled={currentPage === 1} onClick={firstPageHandler}>
               First
             </button>
           </li>
@@ -50,8 +60,8 @@ export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: 
             <li key={page}>
               <button
                 className={`${currentPage === page ? styles.active : ''}`}
-                onClick={() => setCurrentPage(page)}
                 disabled={currentPage === page}
+                onClick={() => changePage(page)}
               >
                 {page}
               </button>
@@ -59,7 +69,7 @@ export function NavMenu({ currentPage, buttons, count, limit, setCurrentPage }: 
           ))}
 
           <li>
-            <button onClick={() => setCurrentPage(maxPages)} disabled={currentPage === maxPages}>
+            <button disabled={currentPage === maxPages} onClick={lastPageHandler}>
               Last
             </button>
           </li>
