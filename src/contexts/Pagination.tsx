@@ -40,10 +40,9 @@ export function PaginationProvider({ children, pokemonList, registers, page }: P
   const maxPages = Math.ceil(count / limit);
 
   async function changePage(page: number) {
-    setCurrentPage(page);
     setPokemons([]);
-
-    await router.push(`/page=${page}`);
+    await router.push(`/?page=${page}`);
+    setCurrentPage(page);
   }
 
   useEffect(() => {

@@ -2,15 +2,12 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { Card } from '../components/Card';
-import { Loading } from '../components/Loading';
 import { NavMenu } from '../components/NavMenu';
+import { PokemonDisplay } from '../components/PokemonDisplay';
 
 import { PaginationProvider, Pokemon } from '../contexts/Pagination';
 
 import { getPokemons } from '../helpers/getPokemonData';
-
-import { usePagination } from '../hooks/usePagination';
 
 import styles from '../styles/Home.module.scss';
 
@@ -23,7 +20,6 @@ const limit = 8;
 
 export default function Home({ pokemonList, registers }: HomeProps) {
   const router = useRouter();
-  const { pokemons } = usePagination();
 
   const { page } = router.query;
   const pageNumber = page ? Number(page) : 1;
@@ -37,15 +33,7 @@ export default function Home({ pokemonList, registers }: HomeProps) {
 
         <h1>Pokédex</h1>
 
-        {pokemons.length > 0 ? (
-          <main>
-            {pokemons.map((pokemon) => (
-              <Card key={pokemon.id} pokemon={pokemon} />
-            ))}
-          </main>
-        ) : (
-          <Loading />
-        )}
+        <PokemonDisplay />
 
         <NavMenu buttons={5} />
       </div>
