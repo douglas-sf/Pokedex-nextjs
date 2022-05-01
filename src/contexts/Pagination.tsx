@@ -41,8 +41,8 @@ export function PaginationProvider({ children, pokemonList, registers, page }: P
 
   async function changePage(page: number) {
     setPokemons([]);
-    await router.push(`/?page=${page}`);
     setCurrentPage(page);
+    await router.push(`/?page=${page}`);
   }
 
   useEffect(() => {

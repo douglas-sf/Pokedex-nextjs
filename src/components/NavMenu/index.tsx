@@ -21,7 +21,7 @@ export function NavMenu({ buttons }: NavMenuProps) {
   const range = createRange(start, end);
 
   async function previousPageHandler() {
-    if (currentPage < 1) {
+    if (currentPage > 1) {
       await changePage(currentPage - 1);
     }
   }
