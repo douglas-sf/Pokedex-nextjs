@@ -1,8 +1,8 @@
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
 import { getPokemons } from '../helpers/getPokemonData';
+import { getLikedPokemonsIds, setLikedPokemonsIds } from '../helpers/likedsPokemon';
 
 export type Pokemon = {
   id: number;
@@ -17,7 +17,9 @@ type PaginationContextData = {
   limit: number;
   currentPage: number;
   maxPages: number;
-  changePage(page: number): Promise<void>;
+  likedPokemons: number[];
+  changePage: (page: number) => Promise<void>;
+  toggleLikedPokemon: (pokemonId: number) => void;
 };
 
 type PaginationProviderProps = {
@@ -36,6 +38,7 @@ export function PaginationProvider({ children, pokemonList, registers, page }: P
   const [count, setCount] = useState(registers);
   const [limit, setLimit] = useState(8);
   const [currentPage, setCurrentPage] = useState(page);
+  const [likedPokemons, setLikedPokemons] = useState<number[]>([]);
 
   const maxPages = Math.ceil(count / limit);
 
@@ -45,6 +48,19 @@ export function PaginationProvider({ children, pokemonList, registers, page }: P
     await router.push(`/?page=${page}`);
   }
 
+  function toggleLikedPokemon(pokemonId: number) {
+    const pokemonIsLiked = likedPokemons.some((id) => pokemonId === id);
+
+    const newPokemonLikedList = pokemonIsLiked
+      ? [...likedPokemons].filter((id) => id !== pokemonId)
+      : [...likedPokemons, pokemonId];
+
+    const sortedList = newPokemonLikedList.sort((a, b) => a - b);
+
+    setLikedPokemonsIds(sortedList);
+    setLikedPokemons(sortedList);
+  }
+
   useEffect(() => {
     getPokemons(currentPage, limit).then(({ count, pokemonList }) => {
       setPokemons(pokemonList);
@@ -52,8 +68,15 @@ export function PaginationProvider({ children, pokemonList, registers, page }: P
     });
   }, [currentPage, limit]);
 
+  useEffect(() => {
+    const likedPokemonsList = getLikedPokemonsIds();
+    setLikedPokemons(likedPokemonsList);
+  }, []);
+
   return (
-    <PaginationContext.Provider value={{ pokemons, count, limit, currentPage, maxPages, changePage }}>
+    <PaginationContext.Provider
+      value={{ pokemons, count, limit, currentPage, maxPages, likedPokemons, changePage, toggleLikedPokemon }}
+    >
       {children}
     </PaginationContext.Provider>
   );
