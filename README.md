@@ -2,8 +2,6 @@
 
 Projeto feito no curso de JavaScript, que foi incrementado usando Next.js, typescript e SASS, também foi adicionado paginação
 
-Está em produção em: https://demo-pokedex-next.herokuapp.com/
-
 Após clonar o repositório no seu PC:
 
 Para instalar as dependências:
